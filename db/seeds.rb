@@ -88,47 +88,47 @@
 
 
 # Populate the 'schedules' table based on routes and stops.(API)
-require 'net/http'
-require 'json'
-require 'uri'
-Stop.find_each do |stop|
-  url = URI("https://api.winnipegtransit.com/v3/stops/#{stop.key}/schedule.json?api-key=aaitNO7SFcfMFhmbrg-u&start=2024-03-03T10:00:00&end=10:30:00&route=BLUE,650,642,691,694,47,16,18,31")
-  response = Net::HTTP.get(url)
-  result = JSON.parse(response)
-  route_schedules = result['stop-schedule']['route-schedules']
+# require 'net/http'
+# require 'json'
+# require 'uri'
+# Stop.find_each do |stop|
+#   url = URI("https://api.winnipegtransit.com/v3/stops/#{stop.key}/schedule.json?api-key=aaitNO7SFcfMFhmbrg-u&start=2024-03-03T10:00:00&end=10:30:00&route=BLUE,650,642,691,694,47,16,18,31")
+#   response = Net::HTTP.get(url)
+#   result = JSON.parse(response)
+#   route_schedules = result['stop-schedule']['route-schedules']
 
-  route_schedules.each do |route_schedule|
-    route_number = route_schedule["route"]["number"]
-    route = Route.find_by(number: route_number)
+#   route_schedules.each do |route_schedule|
+#     route_number = route_schedule["route"]["number"]
+#     route = Route.find_by(number: route_number)
 
-    if route
-      scheduled_stops = route_schedule['scheduled-stops']
+#     if route
+#       scheduled_stops = route_schedule['scheduled-stops']
 
-      scheduled_stops.each do |scheduled_stop|
-        if scheduled_stop['times'] && scheduled_stop['times']['arrival'] && scheduled_stop['times']['arrival']["scheduled"]
-          arrival = scheduled_stop['times']['arrival']["scheduled"][-8..-1]
-        end
+#       scheduled_stops.each do |scheduled_stop|
+#         if scheduled_stop['times'] && scheduled_stop['times']['arrival'] && scheduled_stop['times']['arrival']["scheduled"]
+#           arrival = scheduled_stop['times']['arrival']["scheduled"][-8..-1]
+#         end
 
-        if scheduled_stop['times'] && scheduled_stop['times']['departure'] && scheduled_stop['times']['departure']["scheduled"]
-          departure = scheduled_stop['times']['departure']["scheduled"][-8..-1]
-        end
+#         if scheduled_stop['times'] && scheduled_stop['times']['departure'] && scheduled_stop['times']['departure']["scheduled"]
+#           departure = scheduled_stop['times']['departure']["scheduled"][-8..-1]
+#         end
 
-        # puts "arrival #{arrival} departure #{departure}"
+#         # puts "arrival #{arrival} departure #{departure}"
 
-        if arrival && departure
-          Schedule.create!(
-            stop_id: stop.id,
-            route_id: route.id,
-            arrival: arrival,
-            departure: departure
-          )
-        end
+#         if arrival && departure
+#           Schedule.create!(
+#             stop_id: stop.id,
+#             route_id: route.id,
+#             arrival: arrival,
+#             departure: departure
+#           )
+#         end
 
-      end
+#       end
 
-    else
-      puts "Failed to find route number #{route_number} for stop #{stop.key}"
-    end
+#     else
+#       puts "Failed to find route number #{route_number} for stop #{stop.key}"
+#     end
 
-  end
-end
+#   end
+# end
