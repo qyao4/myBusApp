@@ -1,0 +1,21 @@
+<h1>About This Application</h1>
+
+<p>This application utilizes data from several sources, structured into five main tables within our database to manage and display transportation schedules effectively:</p>
+
+<ul>
+  <li><strong>Drivers</strong>: Contains information about the drivers. Each record includes details such as the driver's name and email address. This table helps us manage who is driving which route.</li>
+
+  <li><strong>Routes</strong>: Stores data about the bus routes. Each route has a unique number and type (such as regular, industrial, school, charter, or work), indicating the kind of service provided by this route.</li>
+
+  <li><strong>Stops</strong>: This table holds information about the bus stops, including each stop's location and identifier. It's crucial for mapping out the routes and their respective stops.</li>
+
+  <li><strong>Schedules</strong>: Contains the timetables for when buses on a particular route arrive at and depart from their stops. This table is central to the application as it ties together routes and stops with specific times, making the schedule information actionable.</li>
+
+  <li><strong>DriversRoutes (Join Table)</strong>: Represents the many-to-many relationship between drivers and routes. This connection table is essential for associating drivers with the routes they operate, enabling a flexible assignment of drivers to different routes.</li>
+</ul>
+
+<p>Data integration across these tables is achieved through relational database principles, ensuring that each piece of data is linked appropriately — for example, connecting drivers to routes they drive and mapping routes to their stops and schedules. This structure allows for complex queries and operations, such as finding all stops for a specific route or listing all routes a driver is assigned to, with ease.</p>
+
+<h2>ERD Diagram</h2>
+<p>Below is the Entity Relationship Diagram (ERD) for our application, illustrating the relationships between the different tables:</p>
+<%= image_tag("intro_rail_erd.drawio.png", alt: "ERD Diagram") %>

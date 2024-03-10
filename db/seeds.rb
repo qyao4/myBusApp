@@ -91,8 +91,8 @@
 require 'net/http'
 require 'json'
 require 'uri'
-Stop.where('id >= ?', 89).find_each do |stop|
-  url = URI("https://api.winnipegtransit.com/v3/stops/#{stop.key}/schedule.json?api-key=aaitNO7SFcfMFhmbrg-u&start=2024-03-03T20:00:00&end=20:30:00&route=BLUE,650,642,691,694,47,16,18,31")
+Stop.find_each do |stop|
+  url = URI("https://api.winnipegtransit.com/v3/stops/#{stop.key}/schedule.json?api-key=aaitNO7SFcfMFhmbrg-u&start=2024-03-03T10:00:00&end=10:30:00&route=BLUE,650,642,691,694,47,16,18,31")
   response = Net::HTTP.get(url)
   result = JSON.parse(response)
   route_schedules = result['stop-schedule']['route-schedules']
