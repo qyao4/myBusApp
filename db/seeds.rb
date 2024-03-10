@@ -40,22 +40,48 @@
 # end
 
 # Populate the 'drivers_routes' table with csv
-require 'csv'
+# require 'csv'
 
-csv_text = File.read(Rails.root.join('db', 'drivers_routes.csv'))
-csv = CSV.parse(csv_text, headers: true)
-csv.each do |row|
-  driver_id = row['driver_id']
-  route_id = row['route_id']
+# csv_text = File.read(Rails.root.join('db', 'drivers_routes.csv'))
+# csv = CSV.parse(csv_text, headers: true)
+# csv.each do |row|
+#   driver_id = row['driver_id']
+#   route_id = row['route_id']
 
-  driver = Driver.find_by(id: driver_id)
-  route = Route.find_by(id: route_id)
+#   driver = Driver.find_by(id: driver_id)
+#   route = Route.find_by(id: route_id)
 
-  if driver && route
-    driver.routes << route unless driver.routes.include?(route)
-  else
-    puts "Driver or Route not found: Driver ID = #{driver_id}, Route ID = #{route_id}"
+#   if driver && route
+#     driver.routes << route unless driver.routes.include?(route)
+#   else
+#     puts "Driver or Route not found: Driver ID = #{driver_id}, Route ID = #{route_id}"
+#   end
+# end
+
+# puts "Imported drivers_routes associations from CSV"
+
+
+# Populate the 'stops' table based on 10 routes.(API)
+require 'net/http'
+require 'json'
+require 'uri'
+
+route_keys = ["BLUE", "642", "650", "691", "694", "47", "74","16","18","31"]
+
+route_keys.each do |route_key|
+  url = URI("https://api.winnipegtransit.com/v3/stops.json?api-key=aaitNO7SFcfMFhmbrg-u&route=#{route_key}")
+  response = Net::HTTP.get(url)
+  result = JSON.parse(response)
+
+  stop_datas = result['stops']
+
+  stop_datas.each do |stop_data|
+    Stop.create!(
+      key: stop_data['key'],
+      name: stop_data['name'],
+      street: stop_data['street']['name'],
+      latitude: stop_data['centre']['geographic']['latitude'],
+      longitude: stop_data['centre']['geographic']['longitude']
+    )
   end
 end
-
-puts "Imported drivers_routes associations from CSV"
