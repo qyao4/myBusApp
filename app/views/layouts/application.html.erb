@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
@@ -12,9 +13,9 @@
 
   <body>
     <header>
-    <nav>
-        <%= link_to 'Home', root_path %>
-        <%= link_to 'About', about_path %>
+      <nav class="bg-gray-800 p-4 text-white">
+        <%= link_to 'Home', root_path, class: "text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700" %>
+        <%= link_to 'About', about_path, class: "text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700" %>
       </nav>
     </header>
     <%= yield %>
