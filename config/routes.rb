@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'drivers/index'
+  get 'drivers/show'
   get 'stops/index'
   get 'stops/show'
 
@@ -10,6 +12,9 @@ Rails.application.routes.draw do
 
   get 'stops', to:'stops#index'
   get 'stops/show/:id', to: 'stops#show', as: 'stop_show'
+
+  get 'drivers', to:'drivers#index'
+  get 'drivers/show/:id', to: 'drivers#show', as: 'driver_show'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
