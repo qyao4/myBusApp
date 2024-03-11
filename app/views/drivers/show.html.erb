@@ -1,15 +1,22 @@
 <h1>Driver Details</h1>
 
-<div>
-  <p><strong>First Name:</strong> <%= @driver.first_name %></p>
-  <p><strong>Last Name:</strong> <%= @driver.last_name %></p>
-  <p><strong>Email:</strong> <%= @driver.email %></p>
-  <p><strong>Phone Number:</strong> <%= @driver.phone_number %></p>
+<div class="max-w-4xl mx-auto p-5">
+  <h1 class="text-2xl font-bold text-gray-900 mb-6">Driver Details</h1>
+
+  <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+    <p class="mb-4"><strong>First Name:</strong> <%= @driver.first_name %></p>
+    <p class="mb-4"><strong>Last Name:</strong> <%= @driver.last_name %></p>
+    <p class="mb-4"><strong>Email:</strong> <%= @driver.email %></p>
+    <p class="mb-4"><strong>Phone Number:</strong> <%= @driver.phone_number %></p>
+  </div>
+
+  <h2 class="text-xl font-semibold text-gray-900 mb-4">Routes:</h2>
+  <ul class="bg-white shadow-md rounded-lg p-6 list-disc list-inside">
+    <% @driver.routes.each do |route| %>
+      <li class="mb-2">
+        <%= link_to "#{route.number} - #{route.coverage}", route_show_path(route.id), class: "text-blue-500 hover:text-blue-700" %>
+      </li>
+    <% end %>
+  </ul>
 </div>
 
-<h2>Routes:</h2>
-<ul>
-  <% @driver.routes.each do |route| %>
-    <li><%= route.number %> - <%= route.coverage %></li>
-  <% end %>
-</ul>
