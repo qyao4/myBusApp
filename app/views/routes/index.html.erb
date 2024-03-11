@@ -11,10 +11,25 @@
 
 <h1>Routes</h1>
 
-<ul>
-  <% @routes.each do |route| %>
-    <li>
-      <%= link_to "Route ##{route.number}", route_show_path(route.id) %>
-    </li>
-  <% end %>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Route Number</th>
+      <th>Coverage</th>
+      <th>customerType</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @routes.each do |route| %>
+      <tr>
+        <td><%= route.number %></td>
+        <td><%= route.coverage %></td>
+        <td><%= route.customer_type %></td>
+        <td><%= link_to "View", route_show_path(route.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @routes %>

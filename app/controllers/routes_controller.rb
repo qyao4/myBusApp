@@ -1,6 +1,7 @@
 class RoutesController < ApplicationController
   def index
-    @routes = Route.all
+    # @routes = Route.all
+    @routes = Route.all.order(:number).page(params[:page]).per(5)
     if params[:search].present?
       @routes = @routes.where("number LIKE ?", "%#{params[:search]}%")
     end
