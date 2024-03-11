@@ -1,31 +1,43 @@
 <h1>Stop Details</h1>
 
-<h1 class="text-xl font-semibold mb-4"><%= @stop.name %></h1>
-<p><strong>Street:</strong> <%= @stop.street %></p>
-<p><strong>Key:</strong> <%= @stop.key %></p>
-<p><strong>Latitude:</strong> <%= @stop.latitude %></p>
-<p><strong>Logitude:</strong> <%= @stop.longitude %></p>
+<div class="flex flex-col md:flex-row">
+  <div class="md:w-1/2  flex flex-col items-center">
+    <h1 class="text-xl font-semibold mb-4 mt-8"><%= @stop.name %></h1>
+      <p><strong>Street:</strong> <%= @stop.street %></p>
+      <p><strong>Key:</strong> <%= @stop.key %></p>
+      <p><strong>Latitude:</strong> <%= @stop.latitude %></p>
+      <p><strong>Logitude:</strong> <%= @stop.longitude %></p>
+  </div>
+  <!-- map -->
+  <div class="md:w-1/2">
+    <div id="map" class="mt-4">
 
 
-<h2 class="text-lg font-semibold mt-6 mb-2">Schedules:</h2>
-<table class="min-w-full table-auto">
-  <thead class="bg-gray-200">
-    <tr>
-      <th class="px-4 py-2">Route Number</th>
-      <th class="px-4 py-2">Arrival</th>
-      <th class="px-4 py-2">Departure</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @stop.schedules.each do |schedule| %>
-      <tr class="border-t border-gray-200">
-        <td class="px-4 py-2">
-          <%= link_to "#{schedule.route.number}", route_show_path(schedule.route.id), class: "text-blue-500 hover:text-blue-700" %>
-        </td>
-        <td class="px-4 py-2"><%= schedule.arrival %></td>
-        <td class="px-4 py-2"><%= schedule.departure %></td>
+      <img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-l+555555(<%= @stop.longitude %>,<%= @stop.latitude %>)/<%= @stop.longitude %>,<%= @stop.latitude %>,14/600x300?access_token=pk.eyJ1Ijoiam9obm55aW50ZXJhY3QiLCJhIjoiY2x0bWtrejY4MGl2bTJpcWU3enhhdzZqMCJ9.hbWPMNY8fiv7Pq2hlXCwZQ" alt="Map" class="w-96 h-48" />
+    </div>
+  </div>
+</div>
+
+<div>
+  <h2 class="text-lg font-semibold mt-6 mb-2">Schedules:</h2>
+  <table class="min-w-full table-auto">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="px-4 py-2">Route Number</th>
+        <th class="px-4 py-2">Arrival</th>
+        <th class="px-4 py-2">Departure</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
+    </thead>
+    <tbody>
+      <% @stop.schedules.each do |schedule| %>
+        <tr class="border-t border-gray-200">
+          <td class="px-4 py-2">
+            <%= link_to "#{schedule.route.number}", route_show_path(schedule.route.id), class: "text-blue-500 hover:text-blue-700" %>
+          </td>
+          <td class="px-4 py-2"><%= schedule.arrival %></td>
+          <td class="px-4 py-2"><%= schedule.departure %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
