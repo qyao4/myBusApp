@@ -19,7 +19,9 @@
   <tbody>
     <% @stop.schedules.each do |schedule| %>
       <tr class="border-t border-gray-200">
-        <td class="px-4 py-2"><%= schedule.route.number %></td>
+        <td class="px-4 py-2">
+          <%= link_to "#{schedule.route.number}", route_show_path(schedule.route.id), class: "text-blue-500 hover:text-blue-700" %>
+        </td>
         <td class="px-4 py-2"><%= schedule.arrival %></td>
         <td class="px-4 py-2"><%= schedule.departure %></td>
       </tr>
