@@ -1,3 +1,14 @@
+<%= form_with(url: routes_path, method: :get, local: true) do |form| %>
+  <%= form.text_field :search, placeholder: "Search routes..." %>
+  <%= form.select :coverage, options_for_select([
+    ['Rapid Transit', 'rapid transit'],
+    ['Feeder', 'feeder'],
+    ['Regular', 'regular'],
+    ['Express', 'express']
+  ], selected: params[:coverage]), include_blank: 'Select Coverage' %>
+  <%= form.submit "Search" %>
+<% end %>
+
 <h1>Routes</h1>
 
 <ul>
