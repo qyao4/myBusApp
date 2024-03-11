@@ -1,0 +1,21 @@
+<h1>Route Details</h1>
+
+<div>
+  <p><strong>Route Number:</strong> <%= @route.number %></p>
+  <p><strong>Service Type:</strong> <%= @route.customer_type %></p>
+  <p><strong>Description:</strong> <%= @route.coverage %></p>
+</div>
+
+<h2>Drivers on this Route:</h2>
+<ul>
+  <% @route.drivers.each do |driver| %>
+    <li><%= driver.first_name %> - <%= driver.last_name %></li>
+  <% end %>
+</ul>
+
+<h2>Stops on this Route:</h2>
+<ul>
+  <% @stops.each do |stop| %>
+    <li><%= stop.name %> - <%= stop.id %></li>
+  <% end %>
+</ul>

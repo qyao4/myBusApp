@@ -9,4 +9,9 @@ class Route < ApplicationRecord
   validates :number, presence: true, uniqueness: true
   validates :customer_type, presence: true
   validates :coverage, presence: true
+
+  def unique_stops
+    stops.distinct
+  end
+
 end
