@@ -1,21 +1,42 @@
 <h1>Route Details</h1>
 
-<div>
-  <p><strong>Route Number:</strong> <%= @route.number %></p>
-  <p><strong>Customer Type:</strong> <%= @route.customer_type %></p>
-  <p><strong>Coverage:</strong> <%= @route.coverage %></p>
+<div class="flex">
+  <!-- left -->
+  <div class="flex-1 p-4">
+    <div class="mb-8">
+      <h1 class="text-xl font-bold mb-4">Route Details</h1>
+      <div class="bg-gray-100 p-4 rounded-lg">
+        <p><strong>Route Number:</strong> <%= @route.number %></p>
+        <p><strong>Customer Type:</strong> <%= @route.customer_type %></p>
+        <p><strong>Coverage:</strong> <%= @route.coverage %></p>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="text-lg font-semibold mb-2">Drivers on this Route:</h2>
+      <ul class="bg-gray-100 p-4 rounded-lg">
+        <% @route.drivers.each do |driver| %>
+          <li>
+            <%= link_to "#{driver.first_name}  #{driver.last_name}", driver_show_path(id: driver.id), class: "text-blue-500 hover:text-blue-700" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <!-- right -->
+  <div class="flex-1 p-4">
+    <h2 class="text-lg font-semibold mb-2">Stops on this Route:</h2>
+    <% if @stops.present? %>
+      <ul class="bg-gray-100 p-4 rounded-lg">
+        <% @stops.each do |stop| %>
+          <li>
+            <%= link_to "#{stop.key} - #{stop.name}", stop_show_path(id: stop.id), class: "text-blue-500 hover:text-blue-700" %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <%= render 'routes/no_stops', message: "No stops available for this route." %>
+    <% end %>
+  </div>
 </div>
-
-<h2>Drivers on this Route:</h2>
-<ul>
-  <% @route.drivers.each do |driver| %>
-    <li><%= driver.first_name %> - <%= driver.last_name %></li>
-  <% end %>
-</ul>
-
-<h2>Stops on this Route:</h2>
-<ul>
-  <% @stops.each do |stop| %>
-    <li><%= stop.name %> - <%= stop.id %></li>
-  <% end %>
-</ul>
