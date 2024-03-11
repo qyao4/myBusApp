@@ -1,35 +1,41 @@
-<%= form_with(url: routes_path, method: :get, local: true) do |form| %>
-  <%= form.text_field :search, placeholder: "Search routes..." %>
-  <%= form.select :coverage, options_for_select([
-    ['Rapid Transit', 'rapid transit'],
-    ['Feeder', 'feeder'],
-    ['Regular', 'regular'],
-    ['Express', 'express']
-  ], selected: params[:coverage]), include_blank: 'Select Coverage' %>
-  <%= form.submit "Search" %>
-<% end %>
+<div class="mt-4 flex justify-center">
+  <%= form_with(url: routes_path, method: :get, local: true, class: "mb-6") do |form| %>
+    <div class="flex space-x-2">
+      <%= form.text_field :search, placeholder: "Search routes...", class: "px-4 py-2 border rounded shadow-sm" %>
+      <%= form.select :coverage, options_for_select([
+        ['Rapid Transit', 'rapid transit'],
+        ['Feeder', 'feeder'],
+        ['Regular', 'regular'],
+        ['Express', 'express']
+      ], selected: params[:coverage]), include_blank: 'Select Coverage', class: "px-4 py-2 border rounded shadow-sm" %>
+      <%= form.submit "Search", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    </div>
+  <% end %>
+</div>
 
-<h1>Routes</h1>
+<h1 class="text-2xl font-bold mb-4">Routes</h1>
 
-<table>
-  <thead>
+<table class="table-auto w-full mb-4">
+  <thead class="bg-gray-200">
     <tr>
-      <th>Route Number</th>
-      <th>Coverage</th>
-      <th>customerType</th>
-      <th>Actions</th>
+      <th class="px-4 py-2">Route Number</th>
+      <th class="px-4 py-2">Coverage</th>
+      <th class="px-4 py-2">Customer Type</th>
+      <th class="px-4 py-2">Actions</th>
     </tr>
   </thead>
   <tbody>
     <% @routes.each do |route| %>
-      <tr>
-        <td><%= route.number %></td>
-        <td><%= route.coverage %></td>
-        <td><%= route.customer_type %></td>
-        <td><%= link_to "View", route_show_path(route.id) %></td>
+      <tr class="<%= cycle('bg-white', 'bg-gray-50') %>">
+        <td class="border px-4 py-2"><%= route.number %></td>
+        <td class="border px-4 py-2"><%= route.coverage %></td>
+        <td class="border px-4 py-2"><%= route.customer_type %></td>
+        <td class="border px-4 py-2"><%= link_to "View", route_show_path(route.id), class: "text-blue-500 hover:text-blue-800" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= paginate @routes %>
+<div class="mt-4 mr-8 flex justify-end">
+  <%= paginate @routes, class: "kaminari_tailwind" %>
+</div>

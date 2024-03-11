@@ -1,0 +1,29 @@
+<h1>Stop Details</h1>
+
+<h1 class="text-xl font-semibold mb-4"><%= @stop.name %></h1>
+<p><strong>Street:</strong> <%= @stop.street %></p>
+<p><strong>Key:</strong> <%= @stop.key %></p>
+<p><strong>Latitude:</strong> <%= @stop.latitude %></p>
+<p><strong>Logitude:</strong> <%= @stop.longitude %></p>
+
+
+<h2 class="text-lg font-semibold mt-6 mb-2">Schedules:</h2>
+<table class="min-w-full table-auto">
+  <thead class="bg-gray-200">
+    <tr>
+      <th class="px-4 py-2">Route Number</th>
+      <th class="px-4 py-2">Arrival</th>
+      <th class="px-4 py-2">Departure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @stop.schedules.each do |schedule| %>
+      <tr class="border-t border-gray-200">
+        <td class="px-4 py-2"><%= schedule.route.number %></td>
+        <td class="px-4 py-2"><%= schedule.arrival %></td>
+        <td class="px-4 py-2"><%= schedule.departure %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

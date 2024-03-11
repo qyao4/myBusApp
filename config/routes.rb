@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
+  get 'stops/index'
+  get 'stops/show'
 
   root 'home#index'
   get 'about', to: 'about#index'
 
   get 'routes', to:'routes#index'
   get 'routes/show/:id', to: 'routes#show', as: 'route_show'
+
+  get 'stops', to:'stops#index'
+  get 'stops/show/:id', to: 'stops#show', as: 'stop_show'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
